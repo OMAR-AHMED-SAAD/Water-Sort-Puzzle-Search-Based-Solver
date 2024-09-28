@@ -6,6 +6,8 @@ public class Bottle {
 	private char topLayer;
 	private int topLayerIndex;
 
+
+
 	public Bottle(String bottleLayers) {
 		this.layers = bottleLayers.replaceAll(",", "").toCharArray();
 		this.topLayer = 'e';

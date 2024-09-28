@@ -7,6 +7,16 @@ public class State {
 		this.bottles = bottles;
 	}
 
+	public State(String stateDescription){
+		String [] state = stateDescription.split(";");
+		int numOfBottles = Integer.parseInt(state[0]);
+		int bottleCapacity = Integer.parseInt(state[0]);
+		Bottle[] bottles= new Bottle[numOfBottles];
+		for(int i=0;i<numOfBottles;i++)
+			bottles[i+2]= new Bottle(state[i+2]);
+		this.bottles=bottles;
+	}
+
 	public boolean isGoal() {
 		for (Bottle bottle : bottles)
 			if (!bottle.isAllLayersSame())
