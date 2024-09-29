@@ -1,5 +1,7 @@
 package code;
 
+import java.util.HashSet;
+
 import Quing.*;
 
 public class WaterSortSearch extends GenericSearch {
@@ -32,7 +34,7 @@ public class WaterSortSearch extends GenericSearch {
 		if (resultNode.isNull)
 			return "NOSOLUTION";
 		else
-			return "SOLUTION";
+			return resultNode.getPath() + ";" + resultNode.cost + ";" + GenericSearch.nodesExpanded;
 
 	}
 
@@ -66,6 +68,7 @@ public class WaterSortSearch extends GenericSearch {
 		int depthLimit = 0;
 		int currMaxDepth = -1;
 		while (true) {
+			explored = new HashSet<State>();
 			Node result = GenericSearch.generalSearch(problem, new myLimitedStack(depthLimit++));
 			if (!result.isNull || result.getDepth() == currMaxDepth)
 				return result;

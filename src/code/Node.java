@@ -6,11 +6,10 @@ public class Node implements Comparable<Node> {
 	String operator;
 	int depth;
 	int cost;
-	boolean isNull = false;
+	boolean isNull = true;
 	Strategy strategy = Strategy.NORMAL;
 
 	public Node(int depth) {
-		this.isNull = true;
 		this.depth = depth;
 	}
 
@@ -20,6 +19,7 @@ public class Node implements Comparable<Node> {
 		this.operator = operator;
 		this.depth = depth;
 		this.cost = cost;
+		this.isNull = false;
 	}
 
 	public int getDepth() {
@@ -34,9 +34,10 @@ public class Node implements Comparable<Node> {
 		StringBuilder path = new StringBuilder();
 		Node current = this;
 		while (current.depth != 0) {
-			path.insert(0, current.operator + " ");
+			path.insert(0, current.operator + ",");
 			current = current.parent;
 		}
+		path.deleteCharAt(path.length() - 1);
 		return path.toString();
 	}
 
