@@ -16,16 +16,28 @@ public class WaterSortSearch extends GenericSearch {
 		Node resultNode;
 		switch (strategy) {
 		case "BF":
-			resultNode = problem.breadthFirstSearch(problem);
+			resultNode = breadthFirstSearch(problem);
 			break;
 		case "DF":
-			resultNode = problem.depthFirstSearch(problem);
+			resultNode = depthFirstSearch(problem);
 			break;
 		case "ID":
-			resultNode = problem.iterativeDeepeningSearch(problem);
+			resultNode = iterativeDeepeningSearch(problem);
 			break;
 		case "UC":
-			resultNode = problem.uniformCostSearch(problem);
+			resultNode = uniformCostSearch(problem);
+			break;
+		case "GR1":
+			resultNode = greedySearch1(problem);
+			break;
+		case "GR2":
+			resultNode = greedySearch2(problem);
+			break;
+		case "AS1":
+			resultNode = aStarSearch1(problem);
+			break;
+		case "AS2":
+			resultNode = aStarSearch2(problem);
 			break;
 		default:
 			return "Invalid strategy";
@@ -34,7 +46,7 @@ public class WaterSortSearch extends GenericSearch {
 		if (resultNode.isNull)
 			return "NOSOLUTION";
 		else
-			return resultNode.getPath() + ";" + resultNode.cost + ";" + GenericSearch.nodesExpanded;
+			return resultNode.getPath() + ";" + resultNode.cost + ";" + problem.nodesExpanded;
 
 	}
 
@@ -56,28 +68,44 @@ public class WaterSortSearch extends GenericSearch {
 
 	}
 
-	private Node breadthFirstSearch(WaterSortSearch problem) {
-		return GenericSearch.generalSearch(problem, new myLinkedList());
+	private static Node breadthFirstSearch(WaterSortSearch problem) {
+		return generalSearch(problem, new myLinkedList());
 	}
 
-	private Node depthFirstSearch(WaterSortSearch problem) {
-		return GenericSearch.generalSearch(problem, new myStack());
+	private static Node depthFirstSearch(WaterSortSearch problem) {
+		return generalSearch(problem, new myStack());
 	}
 
-	private Node iterativeDeepeningSearch(WaterSortSearch problem) {
+	private static Node iterativeDeepeningSearch(WaterSortSearch problem) {
 		int depthLimit = 0;
 		int currMaxDepth = -1;
 		while (true) {
-			explored = new HashSet<State>();
-			Node result = GenericSearch.generalSearch(problem, new myLimitedStack(depthLimit++));
+			problem.explored = new HashSet<State>();
+			Node result = generalSearch(problem, new myLimitedStack(depthLimit++));
 			if (!result.isNull || result.getDepth() == currMaxDepth)
 				return result;
 			currMaxDepth = result.getDepth();
 		}
 	}
 
-	private Node uniformCostSearch(WaterSortSearch problem) {
-		return GenericSearch.generalSearch(problem, new myPQ());
+	private static Node uniformCostSearch(WaterSortSearch problem) {
+		return generalSearch(problem, new myPQ(new NodeComparator(Strategy.UCS)));
+	}
+
+	private static Node greedySearch1(WaterSortSearch problem) {
+		return generalSearch(problem, new myPQ(new NodeComparator(Strategy.GREEDY_HEURISTIC1)));
+	}
+
+	private static Node greedySearch2(WaterSortSearch problem) {
+		return generalSearch(problem, new myPQ(new NodeComparator(Strategy.GREEDY_HEURISTIC2)));
+	}
+
+	private static Node aStarSearch1(WaterSortSearch problem) {
+		return generalSearch(problem, new myPQ(new NodeComparator(Strategy.A_STAR_HEURISTIC1)));
+	}
+
+	private static Node aStarSearch2(WaterSortSearch problem) {
+		return generalSearch(problem, new myPQ(new NodeComparator(Strategy.A_STAR_HEURISTIC2)));
 	}
 
 }

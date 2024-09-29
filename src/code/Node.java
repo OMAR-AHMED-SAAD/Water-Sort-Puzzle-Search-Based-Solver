@@ -1,13 +1,12 @@
 package code;
 
-public class Node implements Comparable<Node> {
+public class Node {
 	State state;
 	Node parent;
 	String operator;
 	int depth;
 	int cost;
 	boolean isNull = true;
-	Strategy strategy = Strategy.NORMAL;
 
 	public Node(int depth) {
 		this.depth = depth;
@@ -20,6 +19,33 @@ public class Node implements Comparable<Node> {
 		this.depth = depth;
 		this.cost = cost;
 		this.isNull = false;
+	}
+
+//	 get the number of layers remaining to move for each bottle to be of the same color
+	public int getHeuristic1() {
+		int h = 0;
+
+		for (Bottle bottle : state.bottles)
+			h += bottle.layersRemToSameColor();
+
+		return h;
+	}
+
+	public int getHeuristic2() {
+		return 0;
+	}
+
+	public int evaluate(Strategy strategy) {
+		switch (strategy) {
+		case GREEDY_HEURISTIC1:
+		case A_STAR_HEURISTIC1:
+			return getHeuristic1();
+		case GREEDY_HEURISTIC2:
+		case A_STAR_HEURISTIC2:
+			return getHeuristic2();
+		default:
+			return getHeuristic1();
+		}
 	}
 
 	public int getDepth() {
@@ -39,15 +65,6 @@ public class Node implements Comparable<Node> {
 		}
 		path.deleteCharAt(path.length() - 1);
 		return path.toString();
-	}
-
-	@Override
-	public int compareTo(Node o) {
-		if (strategy == Strategy.NORMAL)
-			return this.cost - o.cost;
-		else
-//			TODO: Implement the Heuristic 1 and Heuristic 2 strategies
-			return 0;
 	}
 
 	@Override

@@ -2,17 +2,22 @@ package Quing;
 
 import java.util.PriorityQueue;
 import code.Node;
-public class myPQ extends PriorityQueue<Node> implements QuingFunc<Node>{
+import code.NodeComparator;
 
+public class myPQ extends PriorityQueue<Node> implements QuingFunc<Node> {
 
-    public void enqueue(Node node){
-        this.offer(node);
-    }
+	public myPQ(NodeComparator nodeComparator) {
+		super(nodeComparator);
+	}
 
-    public Node dequeue(){
-        return this.poll();
-    }
-    
+	public void enqueue(Node node) {
+		this.offer(node);
+	}
+
+	public Node dequeue() {
+		return this.poll();
+	}
+
 	public boolean isEmpty() {
 		return super.isEmpty();
 	}
