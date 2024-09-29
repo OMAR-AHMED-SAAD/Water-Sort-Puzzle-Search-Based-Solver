@@ -2,9 +2,11 @@ package Quing;
 
 import code.Node;
 
-public interface QuingFunc {
+public interface QuingFunc <T extends Node>{
 
-    void enque(Node node);
+    void enqueue(Node node);
 
-    void dequeue();
+    Node dequeue();
+    
+    boolean isEmpty();
 }

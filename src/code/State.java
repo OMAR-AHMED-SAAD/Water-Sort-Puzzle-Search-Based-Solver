@@ -1,20 +1,20 @@
 package code;
 
 public class State {
-	private Bottle[] bottles;
+	Bottle[] bottles;
+	int costFromParent;
 
 	public State(Bottle[] bottles) {
 		this.bottles = bottles;
 	}
 
-	public State(String stateDescription){
-		String [] state = stateDescription.split(";");
+	public State(String stateDescription) {
+		String[] state = stateDescription.split(";");
 		int numOfBottles = Integer.parseInt(state[0]);
-		int bottleCapacity = Integer.parseInt(state[0]);
-		Bottle[] bottles= new Bottle[numOfBottles];
-		for(int i=0;i<numOfBottles;i++)
-			bottles[i+2]= new Bottle(state[i+2]);
-		this.bottles=bottles;
+		Bottle[] bottles = new Bottle[numOfBottles];
+		for (int i = 0; i < numOfBottles; i++)
+			bottles[i] = new Bottle(state[i + 2]);
+		this.bottles = bottles;
 	}
 
 	public boolean isGoal() {
@@ -36,8 +36,34 @@ public class State {
 		if (i == j || !bottles[i].isPourValid(bottles[j]))
 			return null;
 		State newState = this.getCopy();
-		newState.bottles[i].pourTo(newState.bottles[j]);
+		newState.costFromParent = newState.bottles[i].pourTo(newState.bottles[j]);
 		return newState;
 
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		State state = (State) obj;
+		for (int i = 0; i < bottles.length; i++)
+			if (!bottles[i].equals(state.bottles[i]))
+				return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		for (int i = 0; i < bottles.length; i++)
+			hash += bottles[i].hashCode() * (i + 1) * 31;
+		return hash;
+	}
+
+	@Override
+	public String toString() {
+		String str = "";
+		for (int i = 0; i < bottles.length; i++)
+			str += "Bottle" + (i + 1)+": " + bottles[i].toString() + " ";
+		return str;
+	}
+
 }

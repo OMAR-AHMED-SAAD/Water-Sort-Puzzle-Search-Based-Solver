@@ -6,8 +6,6 @@ public class Bottle {
 	private char topLayer;
 	private int topLayerIndex;
 
-
-
 	public Bottle(String bottleLayers) {
 		this.layers = bottleLayers.replaceAll(",", "").toCharArray();
 		this.topLayer = 'e';
@@ -83,15 +81,22 @@ public class Bottle {
 		return new String(this.layers);
 	}
 
-//	testing the class remove later ********************************
-	public static void main(String[] args) {
-		Bottle bottle1 = new Bottle("r,r,b,y,g");
-		Bottle bottle2 = new Bottle("e,e,e,e,e");
-		System.out.println(bottle1);
-		System.out.println(bottle2);
-		bottle1.pourTo(bottle2);
-		System.out.println(bottle1);
-		System.out.println(bottle2);
+	@Override
+	public boolean equals(Object obj) {
+		Bottle bottle = (Bottle) obj;
+
+		for (int i = 0; i < this.layers.length; i++)
+			if (this.layers[i] != bottle.layers[i])
+				return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		for (int i = 0; i < this.layers.length; i++)
+			hash += this.layers[i] * (i + 1) * 31;
+		return hash;
 	}
 
 }

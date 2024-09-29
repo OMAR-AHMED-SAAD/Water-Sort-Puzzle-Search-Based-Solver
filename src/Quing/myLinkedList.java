@@ -4,14 +4,17 @@ import code.Node;
 
 import java.util.LinkedList;
 
-public class myLinkedList extends LinkedList<Node> implements QuingFunc {
+public class myLinkedList extends LinkedList<Node> implements QuingFunc<Node> {
 
-    public void enque(Node node) {
+    public void enqueue(Node node) {
         this.add(node);
     }
 
-    public void deque() {
-        this.remove();
+    public Node dequeue() {
+        return this.remove();
     }
 
+	public boolean isEmpty() {
+		return super.isEmpty();
+	}
 }

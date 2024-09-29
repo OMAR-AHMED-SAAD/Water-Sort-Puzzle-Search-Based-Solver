@@ -4,14 +4,18 @@ import code.Node;
 
 import java.util.Stack;
 
-public class myStack extends Stack<Node> implements QuingFunc {
+public class myStack extends Stack<Node> implements QuingFunc <Node>{
 
-    public void enque(Node node) {
+    public void enqueue(Node node) {
         this.push(node);
     }
 
-    public void deque() {
-        this.pop();
+    public Node dequeue() {
+        return this.pop();
     }
+    
+	public boolean isEmpty() {
+		return super.isEmpty();
+	}
 
 }
