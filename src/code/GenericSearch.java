@@ -8,7 +8,7 @@ public abstract class GenericSearch {
 
 	State initialState;
 	HashSet<State> explored = new HashSet<State>();
-	static int nodesExpanded = 0;
+	int nodesExpanded = 0;
 
 	public GenericSearch(State initialState) {
 		this.initialState = initialState;
@@ -20,13 +20,17 @@ public abstract class GenericSearch {
 		int maxDepth = 0;
 		while (!nodes.isEmpty()) {
 			Node node = nodes.dequeue();
-			nodesExpanded++;
+			problem.nodesExpanded++;
 			maxDepth = Math.max(maxDepth, node.depth);
-			if (node.isGoal())
+			if (goalTest(node))
 				return node;
 			problem.expand(node, nodes);
 		}
 		return new Node(maxDepth);
+	}
+
+	public static boolean goalTest(Node node) {
+		return node.isGoal();
 	}
 
 	public abstract void expand(Node node, QuingFunc<Node> nodes);
