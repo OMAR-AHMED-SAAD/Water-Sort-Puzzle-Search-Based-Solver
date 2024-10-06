@@ -1,7 +1,7 @@
 package code;
 
 public class Bottle {
-	private char[] layers;
+	char[] layers;
 	private int numEmpty;
 	private char topLayer;
 	private int topLayerIndex;
@@ -74,6 +74,17 @@ public class Bottle {
 		}
 		return numOfPours;
 
+	}
+
+	public int layersRemToSameColor() {
+		int h = 0;
+		char bottomLayer = this.layers[this.layers.length - 1];
+
+		for (int i = 0; i < this.layers.length; i++) {
+			if (this.layers[i] != bottomLayer && this.layers[i] != 'e')
+				h++;
+		}
+		return h;
 	}
 
 	@Override
