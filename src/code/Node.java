@@ -21,30 +21,16 @@ public class Node {
 		this.isNull = false;
 	}
 
-//	 get the number of layers remaining to move for each bottle to be of the same color
-	public int getHeuristic1() {
-		int h = 0;
-
-		for (Bottle bottle : state.bottles)
-			h += bottle.layersRemToSameColor();
-
-		return h;
-	}
-
-	public int getHeuristic2() {
-		return 0;
-	}
-
 	public int evaluate(Strategy strategy) {
 		switch (strategy) {
 		case GREEDY_HEURISTIC1:
 		case A_STAR_HEURISTIC1:
-			return getHeuristic1();
+			return state.getHeuristic1();
 		case GREEDY_HEURISTIC2:
 		case A_STAR_HEURISTIC2:
-			return getHeuristic2();
+			return state.getHeuristic2();
 		default:
-			return getHeuristic1();
+			return state.getHeuristic1();
 		}
 	}
 
@@ -75,7 +61,6 @@ public class Node {
 		sb.append("Depth: ").append(depth);
 		sb.append(" Cost: ").append(cost).append("\n");
 		return sb.toString();
-
 	}
 
 }

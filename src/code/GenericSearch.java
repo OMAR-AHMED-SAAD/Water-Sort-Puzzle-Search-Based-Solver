@@ -1,13 +1,15 @@
 package code;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import Quing.QuingFunc;
 
 public abstract class GenericSearch {
 
-	State initialState;
-	HashSet<State> explored = new HashSet<State>();
+	State initialState; 
+//	HashSet<State> explored = new HashSet<State>();
+	HashMap<State, Integer> exploredMap = new HashMap<State, Integer>();
 	int nodesExpanded = 0;
 
 	public GenericSearch(State initialState) {

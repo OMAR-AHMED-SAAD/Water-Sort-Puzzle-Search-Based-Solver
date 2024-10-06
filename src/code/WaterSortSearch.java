@@ -1,5 +1,6 @@
 package code;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import Quing.*;
@@ -58,8 +59,12 @@ public class WaterSortSearch extends GenericSearch {
 				if (i == j)
 					continue;
 				State newState = parentState.getNewState(i, j);
-				if (newState != null && !explored.contains(newState)) {
-					explored.add(newState);
+				// if (newState != null && !explored.contains(newState)) {
+				//					explored.add(newState);
+				Integer exploredCost = exploredMap.get(newState);
+				if (newState != null
+						&& (exploredCost == null || exploredCost >= (node.cost + newState.costFromParent))) {
+					exploredMap.put(newState, node.cost + newState.costFromParent);
 					Node newNode = new Node(newState, node, "pour_" + i + "_" + j, node.depth + 1,
 							node.cost + newState.costFromParent);
 					nodes.enqueue(newNode);
@@ -80,7 +85,8 @@ public class WaterSortSearch extends GenericSearch {
 		int depthLimit = 0;
 		int currMaxDepth = -1;
 		while (true) {
-			problem.explored = new HashSet<State>();
+//			problem.explored = new HashSet<State>();
+			problem.exploredMap = new HashMap<State, Integer>();
 			Node result = generalSearch(problem, new myLimitedStack(depthLimit++));
 			if (!result.isNull || result.getDepth() == currMaxDepth)
 				return result;

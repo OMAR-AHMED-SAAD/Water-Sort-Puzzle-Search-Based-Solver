@@ -41,6 +41,24 @@ public class State {
 
 	}
 
+//	 get the number of layers remaining to move for each bottle to be of the same color
+	public int getHeuristic1() {
+		int h = 0;
+
+		for (Bottle bottle : bottles)
+			h += bottle.layersRemToSameColor();
+
+		return h;
+	}
+
+	public int getHeuristic2() {
+		int h = 0;
+		for (Bottle bottle : bottles)
+			if (!bottle.isAllLayersSame())
+				h++;
+		return h;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		State state = (State) obj;
@@ -62,7 +80,7 @@ public class State {
 	public String toString() {
 		String str = "";
 		for (int i = 0; i < bottles.length; i++)
-			str += "Bottle" + (i + 1)+": " + bottles[i].toString() + " ";
+			str += "Bottle" + (i + 1) + ": " + bottles[i].toString() + " ";
 		return str;
 	}
 
