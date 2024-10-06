@@ -17,5 +17,5 @@ This project implements a search agent that solves the water sort puzzle. The pu
 
 Below is the class diagram illustrating the structure of the WaterSortSearch class and its relationship with other classes.
 
-![Class Diagram](path/to/your/image.png)
+![Class Diagram](UML%20class.png)
 
