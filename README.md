@@ -66,5 +66,18 @@ These heuristics are used to estimate the cost to reach the goal and guide the s
   - **Quing Function**: A* uses a **priority queue**, but it combines the node's cost with its heuristic evaluation. Nodes are prioritized based on the sum of the actual cost to reach the node and the heuristic value, ensuring that both cost and estimated remaining distance to the goal are considered.
   - **Implementation**: A* search is implemented as `generalSearch(problem, new myPQ(new NodeComparator(Strategy.A_STAR_HEURISTIC1)))` and `generalSearch(problem, new myPQ(new NodeComparator(Strategy.A_STAR_HEURISTIC2)))`.
 
+#### 7. **Admissibility of Heuristics**
+
+Admissibility is a crucial property for heuristics in A* search, meaning that the heuristic never overestimates the cost to reach the goal. For A* to guarantee the optimal solution, the heuristic must be admissible. Below is the argument for the admissibility of the two heuristics used in this project:
+
+- **Heuristic 1 (Number of Different Layers)**: 
+  This heuristic counts the number of layers in each bottle that are different from the bottom layer of the bottle. It essentially estimates how many moves are required to make all layers in each bottle uniform. Since no more moves than the number of differing layers are needed to solve the puzzle, this heuristic never overestimates the cost, making it admissible. The actual cost to reach the goal may be higher, but the heuristic provides a lower bound, ensuring admissibility.
+
+- **Heuristic 2 (Number of Non-Uniform Bottles)**: 
+  This heuristic counts the number of bottles that do not have uniform colors. It estimates the minimum number of actions required to make all bottles uniform. Since every non-uniform bottle will require at least one move to resolve, the heuristic provides a lower bound on the cost to reach the goal. Like Heuristic 1, it does not overestimate the actual cost, ensuring that this heuristic is also admissible.
+
+Both heuristics provide optimistic estimates of the remaining cost to reach the goal, meaning that they never overestimate the true cost. This makes them **admissible** and ensures that A* search, when using these heuristics, will find the optimal solution to the WaterSort problem.
+
+
 
 
