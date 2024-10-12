@@ -1,7 +1,7 @@
 package code;
 
 public class Bottle {
-    char[] layers;
+    public char[] layers;
     private int numEmpty;
     private char topLayer;
     private int topLayerIndex;
@@ -110,4 +110,7 @@ public class Bottle {
         return hash;
     }
 
+    public char getTopLayer() {
+        return topLayer;
+    }
 }
