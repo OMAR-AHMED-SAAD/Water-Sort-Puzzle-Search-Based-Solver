@@ -1,11 +1,13 @@
 package code;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 import Quing.*;
 
 import java.util.HashMap;
 
 public class WaterSortSearch extends GenericSearch {
-    public static WaterSortVisualizer visualizer;
 
     public WaterSortSearch(State initialState) {
         super(initialState);
@@ -51,7 +53,6 @@ public class WaterSortSearch extends GenericSearch {
             return "NOSOLUTION";
         else {
             if (visualize) {
-
                 new WaterSortVisualizer(resultNode);
             }
             return resultNode.getPath() + ";" + resultNode.cost + ";" + problem.nodesExpanded;

@@ -1,17 +1,16 @@
 package code;
 
-import Quing.QuingFunc;
-
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+
+import Quing.QuingFunc;
 
 public abstract class GenericSearch {
 
-    public ArrayList<Node> expandedNodes = new ArrayList<>();
-    State initialState;
-    //	HashSet<State> explored = new HashSet<State>();
-    HashMap<State, Integer> exploredMap = new HashMap<State, Integer>();
-    int nodesExpanded = 0;
+	State initialState; 
+//	HashSet<State> explored = new HashSet<State>();
+	HashMap<State, Integer> exploredMap = new HashMap<State, Integer>();
+	int nodesExpanded = 0;
 
     public GenericSearch(State initialState) {
         this.initialState = initialState;
@@ -26,7 +25,6 @@ public abstract class GenericSearch {
             problem.nodesExpanded++;
             maxDepth = Math.max(maxDepth, node.depth);
 
-            problem.expandedNodes.add(node);
 
             if (goalTest(node))
                 return node;
