@@ -103,6 +103,45 @@ Admissibility is a crucial property for heuristics in A* search, meaning that th
 
 Both heuristics provide optimistic estimates of the remaining cost to reach the goal, meaning that they never overestimate the true cost. This makes them **admissible** and ensures that A* search, when using these heuristics, will find the optimal solution to the WaterSort problem.
 
+## Performance of Search Strategies
+
+In the Water Sort Search problem, we use different search strategies to find the solution. Each strategy is evaluated based on two key criteria: **Optimality** (whether it guarantees the best solution) and **Completeness** (whether it guarantees finding a solution if one exists). Below is a breakdown of how each search strategy performs in this context.
+
+### 1. Breadth-First Search (BFS)
+- **Optimality**: BFS is **optimal** for the Water Sort problem when all operations (pouring liquids between bottles) have equal costs. This is because BFS explores all possible states at the current depth (number of pour operations) before moving to deeper levels, ensuring that the first solution it finds uses the fewest operations.
+- **Completeness**: BFS is **complete**, meaning it guarantees finding a solution if one exists. However, it can be memory-intensive because it must store all generated states at each depth level, which can be problematic for large bottle configurations.
+
+### 2. Depth-First Search (DFS)
+- **Optimality**: DFS is **not optimal** in the Water Sort problem. It might find a solution quickly, but that solution is not necessarily the one that requires the fewest pour operations. DFS explores one possible sequence of pours as deeply as possible before backtracking, often leading to suboptimal solutions.
+- **Completeness**: DFS is **not complete** for the Water Sort problem. If the search dives too deeply down one sequence of states (bottle configurations) without finding a solution, it may miss other, shorter solutions or even fail to find a solution at all if it encounters an infinite depth.
+
+### 3. Iterative Deepening Search (ID)
+- **Optimality**: Iterative Deepening Search is **optimal** for the Water Sort problem, as it ensures the solution found uses the minimum number of pour operations, assuming all operations have equal cost. It combines the space efficiency of DFS with the completeness of BFS.
+- **Completeness**: ID is **complete** for the Water Sort problem. It gradually explores deeper levels, eventually finding a solution if one exists, while avoiding the memory consumption issues of BFS.
+
+### 4. Uniform Cost Search (UCS)
+- **Optimality**: UCS is **optimal** in the Water Sort problem. UCS expands states based on the cost of reaching them (in this case, the number of pours). It guarantees finding the solution with the lowest cost (fewest pours) if the costs of operations vary.
+- **Completeness**: UCS is **complete**, meaning it will find a solution if one exists, regardless of the bottle configuration or the number of pours required.
+
+### 5. Greedy Search 1 (GR1)
+- **Optimality**: Greedy Search 1 is **not optimal** for the Water Sort problem. It uses the heuristic of minimizing the number of different layers from the bottom layer of each bottle. While this heuristic may lead to quick solutions, it does not guarantee that the solution found is the one with the fewest pour operations.
+- **Completeness**: Greedy Search 1 is **not complete**. It may get stuck in a local minimum where it cannot make further improvements, and it may fail to find a solution even if one exists.
+
+### 6. Greedy Search 2 (GR2)
+- **Optimality**: Greedy Search 2 is **not optimal** for the Water Sort problem. It uses a heuristic that prioritizes the number of bottles that do not have a uniform color. Like Greedy Search 1, it may find a solution quickly, but there is no guarantee that it is the most efficient solution in terms of pour operations.
+- **Completeness**: Greedy Search 2 is **not complete** for the same reason as Greedy Search 1. It may not explore all possible bottle configurations and can fail to find a solution if it gets stuck in a local minimum.
+
+### 7. A* Search 1 (AS1)
+- **Optimality**: A* Search 1 is **optimal** in the Water Sort problem. It uses the heuristic of minimizing the number of different layers from the bottom layer of each bottle, combined with the cost to reach the current state. This ensures that A* finds the solution with the fewest number of pours, given the heuristic.
+- **Completeness**: A* Search 1 is **complete** and guarantees finding a solution if one exists. The combination of heuristic guidance and cost-based expansion ensures both completeness and optimality.
+
+### 8. A* Search 2 (AS2)
+- **Optimality**: A* Search 2 is also **optimal** in the Water Sort problem. It uses the heuristic that minimizes the number of bottles that do not have a uniform color, along with the cost to reach the current state. This ensures that A* finds the most efficient solution in terms of the number of pour operations.
+- **Completeness**: A* Search 2 is **complete** and guarantees finding a solution if one exists. It benefits from both the guidance of the heuristic and cost-based expansion.
+
+---
+
+
 
 
 
