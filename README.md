@@ -58,9 +58,6 @@ The `Bottle` class models the behavior of each bottle in the WaterSort problem. 
 - **Pouring Logic**: The `pourTo()` method simulates pouring liquid from one bottle to another, ensuring that only valid moves are made. The move is valid if the receiving bottle is not full, and the top layer of the source bottle matches the top layer of the receiving bottle.
 - **Uniformity Check**: The `isAllLayersSame()` method checks if all the non-empty layers in the bottle are the same, which is critical for determining whether a bottle is in a goal state.
 
-Together, these classes (`Node`, `State`, and `Bottle`) form the backbone of the search process. The `GenericSearch` class coordinates the interaction between them by expanding nodes, checking for goal states, and managing the exploration of the state space through various search strategies.
-
-
 ### 5. **Breadth-First Search (BFS)**
 - **Quing Function**: For BFS, a **queue** is used as the quing function, ensuring nodes are processed in a **first-in, first-out (FIFO)** manner. BFS explores all nodes at the current depth before proceeding to deeper nodes.
 - **Implementation**: In the `WaterSortSearch` class, BFS is implemented by calling `generalSearch(problem, new myLinkedList())`, where `myLinkedList` is a custom implementation of a queue.
