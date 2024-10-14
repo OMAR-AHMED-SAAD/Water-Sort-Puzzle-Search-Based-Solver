@@ -26,30 +26,58 @@ In this project, I implemented several search algorithms to solve the WaterSort 
 
 ### 1. **GenericSearch Class**
 - **Generic Method**: The `GenericSearch` class contains a `generalSearch` method that implements the fundamental logic for state exploration. This method takes two key parameters:
-  1. **Problem**: The problem instance includes the initial state, a `goalTest` function to determine if the current state is a solution, and an `expand` function to generate possible states from a given state.
+  1. **Problem**: The problem instance includes the initial state, a `goalTest` function to determine if the current state is a solution, and an `expand` function to generate possible states from a given state. The problem also includes the state transitions and cost management for nodes.
   2. **Quing Function**: The second parameter is the "quing function," which refers to the data structure used to store and manage the nodes. This can be a queue, stack, priority queue, or other structure depending on the search strategy being used.
 
-- **Expand Function**: The `expand` method is responsible for generating the possible next states by applying all valid moves (pouring water between bottles). New states are added to the search space if they have not been explored or if they provide a lower-cost path than previously found.
+- **Expand Function**: The `expand` method is responsible for generating the possible next states by applying all valid moves (pouring water between bottles). The state expansion occurs through the creation of new nodes, each representing a state transition. The method evaluates the cost of reaching the new state and enqueues it if it hasn't been explored yet or if it offers a lower cost than previously discovered.
 
-- **Goal Test**: The search concludes when a node is found that satisfies the goal test, indicating that all bottles in the state are filled with a uniform color.
+- **Goal Test**: The search concludes when a node is found that satisfies the goal test, which is defined in the `State` class. A node reaches the goal if all bottles in the state have uniform layers, i.e., all the layers in each bottle are of the same color.
 
-### 2. **Breadth-First Search (BFS)**
+### 2. **Node Class**
+The `Node` class represents a node in the search tree. It includes:
+- **State**: Each node contains a `state`, represented by an instance of the `State` class. This stores the configuration of all the bottles at a particular step in the search process.
+- **Parent Node**: The `parent` reference points to the node from which the current node was expanded. This allows backtracking to generate the path to the goal.
+- **Operator**: The `operator` describes the action taken to reach this node (e.g., pouring from one bottle to another).
+- **Depth and Cost**: The `depth` tracks how deep the node is in the search tree, and `cost` accumulates the total cost to reach this node.
+
+The `Node` class plays a crucial role in the search process by determining whether the current state is the goal (`isGoal()`), and providing the path taken to reach the node (`getPath()`), which is useful for visualization.
+
+### 3. **State Class**
+The `State` class represents a configuration of bottles at any point in time. It has the following responsibilities:
+- **Bottles Array**: The state holds an array of `Bottle` objects representing the current state of each bottle in the puzzle.
+- **State Transitions**: The `getNewState` method handles state transitions by pouring water from one bottle to another and generating a new state from that action.
+- **Goal Test**: The `isGoal()` method checks whether the current state satisfies the goal condition — all bottles must have uniform layers.
+
+The `State` class is essential in managing transitions between different configurations of the puzzle and evaluating how close a state is to the goal through its two heuristic functions:
+- **Heuristic 1**: Counts the number of layers in each bottle that differ from the bottom layer.
+- **Heuristic 2**: Counts the number of bottles that do not have uniform layers.
+
+### 4. **Bottle Class**
+The `Bottle` class models the behavior of each bottle in the WaterSort problem. It tracks the layers of liquid inside the bottle and provides methods for checking the bottle’s status and performing operations like pouring:
+- **Layers Array**: Each bottle has an array of `layers` representing the colors of the liquid from bottom to top.
+- **Pouring Logic**: The `pourTo()` method simulates pouring liquid from one bottle to another, ensuring that only valid moves are made. The move is valid if the receiving bottle is not full, and the top layer of the source bottle matches the top layer of the receiving bottle.
+- **Uniformity Check**: The `isAllLayersSame()` method checks if all the non-empty layers in the bottle are the same, which is critical for determining whether a bottle is in a goal state.
+
+Together, these classes (`Node`, `State`, and `Bottle`) form the backbone of the search process. The `GenericSearch` class coordinates the interaction between them by expanding nodes, checking for goal states, and managing the exploration of the state space through various search strategies.
+
+
+### 5. **Breadth-First Search (BFS)**
 - **Quing Function**: For BFS, a **queue** is used as the quing function, ensuring nodes are processed in a **first-in, first-out (FIFO)** manner. BFS explores all nodes at the current depth before proceeding to deeper nodes.
 - **Implementation**: In the `WaterSortSearch` class, BFS is implemented by calling `generalSearch(problem, new myLinkedList())`, where `myLinkedList` is a custom implementation of a queue.
 
-### 3. **Depth-First Search (DFS)**
+### 6. **Depth-First Search (DFS)**
 - **Quing Function**: DFS uses a **stack** as the quing function, processing nodes in a **last-in, first-out (LIFO)** manner. This allows DFS to explore as far as possible along each branch before backtracking.
 - **Implementation**: DFS is implemented using a stack in `generalSearch(problem, new myStack())`, where `myStack` is a custom stack implementation.
 
-### 4. **Uniform Cost Search (UCS)**
+### 7. **Uniform Cost Search (UCS)**
 - **Quing Function**: UCS uses a **priority queue**, with nodes prioritized based on their cumulative cost. Nodes with the lowest cost are explored first, ensuring that the search always expands the least expensive path.
 - **Implementation**: UCS is implemented using `generalSearch(problem, new myPQ(new NodeComparator(Strategy.UCS)))`, where `myPQ` is a priority queue and the `NodeComparator` prioritizes nodes based on their cost.
 
-### 5. **Iterative Deepening Search (ID)**
+### 8. **Iterative Deepening Search (ID)**
 - **Quing Function**: ID uses a **stack** but limits the depth of exploration. It iteratively deepens the depth limit until a solution is found.
 - **Implementation**: Iterative Deepening is implemented with `generalSearch(problem, new myLimitedStack(depthLimit++))`, where the stack has a depth limit that increases with each iteration.
 
-### 6. **Informed Search Algorithms**
+### 9. **Informed Search Algorithms**
 For informed search algorithms (Greedy Search and A*), two heuristics are defined:
 - **Heuristic 1**: The number of different layers from the bottom layer of each bottle.
 - **Heuristic 2**: The number of bottles that do not have a uniform color.
@@ -66,7 +94,7 @@ These heuristics are used to estimate the cost to reach the goal and guide the s
   - **Quing Function**: A* uses a **priority queue**, but it combines the node's cost with its heuristic evaluation. Nodes are prioritized based on the sum of the actual cost to reach the node and the heuristic value, ensuring that both cost and estimated remaining distance to the goal are considered.
   - **Implementation**: A* search is implemented as `generalSearch(problem, new myPQ(new NodeComparator(Strategy.A_STAR_HEURISTIC1)))` and `generalSearch(problem, new myPQ(new NodeComparator(Strategy.A_STAR_HEURISTIC2)))`.
 
-#### 7. **Admissibility of Heuristics**
+#### 10. **Admissibility of Heuristics**
 
 Admissibility is a crucial property for heuristics in A* search, meaning that the heuristic never overestimates the cost to reach the goal. For A* to guarantee the optimal solution, the heuristic must be admissible. Below is the argument for the admissibility of the two heuristics used in this project:
 
