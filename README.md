@@ -108,78 +108,83 @@ Both heuristics provide optimistic estimates of the remaining cost to reach the 
 
 In the **Water Sort Search** problem, each search strategy has been evaluated based on **Optimality**, **Completeness**, **Memory Usage**, **CPU Utilization**, and **Number of Expanded Nodes**. It is important to note that repeated states are tracked, which prevents infinite loops, making some strategies that would typically not be complete, effectively complete for this problem.
 
-### 1. Breadth-First Search (BFS)
-- **Optimality**: BFS is **optimal** when all operations (pouring liquids) have equal costs, ensuring the fewest number of pour operations.
-- **Completeness**: BFS is **complete** and will always find a solution if it exists.
-- **Memory Usage**: 31,966 KB
-- **CPU Utilization**: 28.15%
-- **Nodes Expanded**: 1,657 nodes
+1. Breadth-First Search (BFS)
 
-### 2. Depth-First Search (DFS)
-- **Optimality**: DFS is **not optimal**, as it explores one path deeply before backtracking, often leading to suboptimal solutions.
-- **Completeness**: Although DFS is **not typically complete**, tracking repeated states ensures that DFS does not get stuck in infinite loops. Thus, it may be considered **complete** in this case for the Water Sort problem.
-- **Memory Usage**: 2,229 KB
-- **CPU Utilization**: 26.70%
-- **Nodes Expanded**: 76 nodes
+	•	Optimality: BFS is optimal when all operations (pouring liquids) have equal costs, ensuring the fewest number of pour operations so it's not optimal in our case.
+	•	Completeness: BFS is complete and will always find a solution if it exists.
+	•	Memory Usage: 7,807 KB
+	•	CPU Utilization: 28.79% (+28.79%)
+	•	Nodes Expanded: 543 nodes
 
-### 3. Iterative Deepening Search (ID)
-- **Optimality**: ID is **optimal**, combining the memory efficiency of DFS and the solution optimality of BFS.
-- **Completeness**: ID is **complete** and will find a solution if one exists. Like DFS and BFS, tracking repeated states ensures that it avoids revisiting the same states.
-- **Memory Usage**: 12,122 KB
-- **CPU Utilization**: 25.33%
-- **Nodes Expanded**: 3,067 nodes
+2. Depth-First Search (DFS)
 
-### 4. Uniform Cost Search (UCS)
-- **Optimality**: UCS is **optimal**, expanding the lowest-cost nodes first and guaranteeing the fewest number of pours.
-- **Completeness**: UCS is **complete**, ensuring a solution if it exists.
-- **Memory Usage**: 33,034 KB
-- **CPU Utilization**: 18.53%
-- **Nodes Expanded**: 1,953 nodes
+	•	Optimality: DFS is not optimal, as it explores one path deeply before backtracking, often leading to suboptimal solutions.
+	•	Completeness: Although DFS is not typically complete, tracking repeated states ensures it avoids infinite loops, making it effectively complete for the Water Sort problem.
+	•	Memory Usage: 2,228 KB
+	•	CPU Utilization: 29.49%
+	•	Nodes Expanded: 76 nodes
 
-### 5. Greedy Search 1 (GR1)
-- **Optimality**: Greedy Search 1 is **not optimal**, as it uses a heuristic that doesn't guarantee the fewest pours.
-- **Completeness**: Normally, Greedy Search 1 would not be complete, but since we track repeated states and prevent loops, it may be considered **complete** in the Water Sort problem.
-- **Memory Usage**: 80 KB
-- **CPU Utilization**: 21.98%
-- **Nodes Expanded**: 7 nodes
+3. Iterative Deepening Search (ID)
 
-### 6. Greedy Search 2 (GR2)
-- **Optimality**: Greedy Search 2 is **not optimal**, similar to GR1, focusing on a heuristic that may not lead to the most efficient solution.
-- **Completeness**: Like GR1, tracking repeated states makes Greedy Search 2 **complete** in this problem, as it avoids infinite loops.
-- **Memory Usage**: 160 KB
-- **CPU Utilization**: 17.83%
-- **Nodes Expanded**: 8 nodes
+	•	Optimality: ID is optimal, combining the memory efficiency of DFS and the solution optimality of BFS.
+	•	Completeness: ID is complete and will find a solution if one exists.
+	•	Memory Usage: 434 KB
+	•	CPU Utilization: 29.54%
+	•	Nodes Expanded: 629 nodes
 
-### 7. A* Search 1 (AS1)
-- **Optimality**: A* Search 1 is **optimal**, combining the heuristic with cost-based expansion to guarantee the fewest pours.
-- **Completeness**: A* Search 1 is **complete** and will always find a solution if one exists.
-- **Memory Usage**: 1,026 KB
-- **CPU Utilization**: 21.95%
-- **Nodes Expanded**: 55 nodes
+4. Uniform Cost Search (UCS)
 
-### 8. A* Search 2 (AS2)
-- **Optimality**: A* Search 2 is **optimal**, using a different heuristic to ensure the fewest pours.
-- **Completeness**: A* Search 2 is **complete**, ensuring a solution if one exists.
-- **Memory Usage**: 1,708 KB
-- **CPU Utilization**: 20.34%
-- **Nodes Expanded**: 438 nodes
+	•	Optimality: UCS is optimal, expanding the lowest-cost nodes first and guaranteeing the fewest number of pours.
+	•	Completeness: UCS is complete, ensuring a solution if it exists.
+	•	Memory Usage: 5,422 KB
+	•	CPU Utilization: 18.18%
+	•	Nodes Expanded: 540 nodes
 
----
+5. Greedy Search 1 (GR1)
+
+	•	Optimality: Greedy Search 1 is not optimal, as it uses a heuristic that doesn’t guarantee the fewest pours.
+	•	Completeness: Normally, Greedy Search 1 would not be complete, but tracking repeated states prevents loops, making it complete in this case.
+	•	Memory Usage: 81 KB
+	•	CPU Utilization: 19.68%
+	•	Nodes Expanded: 7 nodes
+
+6. Greedy Search 2 (GR2)
+
+	•	Optimality: Greedy Search 2 is not optimal, similar to GR1, focusing on a heuristic that may not lead to the most efficient solution.
+	•	Completeness: Greedy Search 2 is complete due to repeated states being tracked.
+	•	Memory Usage: 161 KB
+	•	CPU Utilization: 20.54%
+	•	Nodes Expanded: 8 nodes
+
+7. A* Search 1 (AS1)
+
+	•	Optimality: A* Search 1 is optimal, combining the heuristic with cost-based expansion to guarantee the fewest pours.
+	•	Completeness: A* Search 1 is complete and will always find a solution if one exists.
+	•	Memory Usage: 563 KB
+	•	CPU Utilization: 20.38%
+	•	Nodes Expanded: 33 nodes
+
+8. A* Search 2 (AS2)
+
+	•	Optimality: A* Search 2 is optimal, using a different heuristic to ensure the fewest pours.
+	•	Completeness: A* Search 2 is complete and ensures a solution if one exists.
+	•	Memory Usage: 3,797 KB
+	•	CPU Utilization: 18.22%
+	•	Nodes Expanded: 182 nodes
 
 ## Commentary on Results
 
 From the results, we observe some important trends across the search strategies:
 
-- **Breadth-First Search (BFS)** and **Uniform Cost Search (UCS)** both consume the highest amounts of memory and expand a large number of nodes, making them resource-intensive. Despite their optimality and completeness, they may not be the best choice for larger or more complex problems where memory is limited.
-  
-- **Depth-First Search (DFS)** is the most memory-efficient, but its lack of optimality and completeness, combined with high CPU utilization, makes it less desirable for ensuring optimal solutions. Tracking repeated states prevents DFS from revisiting the same states, thus avoiding infinite loops and making it effectively **complete** for this problem.
-
-- **Iterative Deepening (ID)** balances the advantages of BFS and DFS. It maintains optimality and completeness while consuming less memory than BFS and UCS. However, it still expands a large number of nodes, making it less CPU-efficient than DFS.
+- **Breadth-First Search (BFS)** and **Uniform Cost Search (UCS)** both consume the highest amounts of memory and expand a large number of nodes, making them resource-intensive. Despite their optimality(UCS) and completeness, they may not be the best choice for larger or more complex problems where memory is limited.
 
 - **Greedy Searches (GR1 and GR2)** are fast and resource-efficient, consuming the least memory and expanding the fewest nodes. However, their lack of optimality and completeness limits their reliability. In this specific problem, tracking repeated states ensures that they avoid getting stuck in loops, so they can be considered **complete**.
+  
+- **Depth-First Search (DFS)** is obviously not optimal in this example, combined with high CPU utilization, which makes it less desirable for ensuring optimal solutions. Tracking repeated states prevents DFS from revisiting the same states, thus avoiding infinite loops and making it **complete** for this problem.
 
-- **A* Searches (AS1 and AS2)** provide a balance between optimality, completeness, and resource efficiency. While they use more memory than the greedy approaches, they offer a significant improvement in finding the most optimal solution while expanding fewer nodes than BFS or UCS. **A* Search 1** tends to use less memory and CPU than **A* Search 2**, making it slightly more efficient overall.
+- **Iterative Deepening (ID)** It expands the most nodes due to iterating and doing the dfs for several levels.
 
+- **A* Searches (AS1 and AS2)** provide a balance between optimality, completeness, and resource efficiency. While they use more memory than the greedy approaches, they guarantee finding the most optimal solution while expanding fewer nodes than UCS. **A* Search 1** tends to use less memory and CPU than **A* Search 2**, making it slightly more efficient overall.
 
 
 
