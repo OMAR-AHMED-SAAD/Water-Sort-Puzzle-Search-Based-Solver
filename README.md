@@ -105,40 +105,79 @@ Both heuristics provide optimistic estimates of the remaining cost to reach the 
 
 ## Performance of Search Strategies
 
-In the Water Sort Search problem, we use different search strategies to find the solution. Each strategy is evaluated based on two key criteria: **Optimality** (whether it guarantees the best solution) and **Completeness** (whether it guarantees finding a solution if one exists). Below is a breakdown of how each search strategy performs in this context.
+In the **Water Sort Search** problem, each search strategy has been evaluated based on **Optimality**, **Completeness**, **Memory Usage**, **CPU Utilization**, and **Number of Expanded Nodes**.
 
 ### 1. Breadth-First Search (BFS)
-- **Optimality**: BFS is **optimal** for the Water Sort problem when all operations (pouring liquids between bottles) have equal costs. This is because BFS explores all possible states at the current depth (number of pour operations) before moving to deeper levels, ensuring that the first solution it finds uses the fewest operations.
-- **Completeness**: BFS is **complete**, meaning it guarantees finding a solution if one exists. However, it can be memory-intensive because it must store all generated states at each depth level, which can be problematic for large bottle configurations.
+- **Optimality**: BFS is **optimal** when all operations (pouring liquids) have equal costs, ensuring the fewest number of pour operations.
+- **Completeness**: BFS is **complete** and will always find a solution if it exists.
+- **Memory Usage**: 31,966 KB
+- **CPU Utilization**: 28.15%
+- **Nodes Expanded**: 1,657 nodes
 
 ### 2. Depth-First Search (DFS)
-- **Optimality**: DFS is **not optimal** in the Water Sort problem. It might find a solution quickly, but that solution is not necessarily the one that requires the fewest pour operations. DFS explores one possible sequence of pours as deeply as possible before backtracking, often leading to suboptimal solutions.
-- **Completeness**: DFS is **not complete** for the Water Sort problem. If the search dives too deeply down one sequence of states (bottle configurations) without finding a solution, it may miss other, shorter solutions or even fail to find a solution at all if it encounters an infinite depth.
+- **Optimality**: DFS is **not optimal**, as it explores one path deeply before backtracking, often leading to suboptimal solutions.
+- **Completeness**: DFS is **not complete**, as it may get stuck exploring deep paths and miss shorter solutions.
+- **Memory Usage**: 2,229 KB
+- **CPU Utilization**: 26.70%
+- **Nodes Expanded**: 76 nodes
 
 ### 3. Iterative Deepening Search (ID)
-- **Optimality**: Iterative Deepening Search is **optimal** for the Water Sort problem, as it ensures the solution found uses the minimum number of pour operations, assuming all operations have equal cost. It combines the space efficiency of DFS with the completeness of BFS.
-- **Completeness**: ID is **complete** for the Water Sort problem. It gradually explores deeper levels, eventually finding a solution if one exists, while avoiding the memory consumption issues of BFS.
+- **Optimality**: ID is **optimal**, combining the memory efficiency of DFS and the solution optimality of BFS.
+- **Completeness**: ID is **complete** and will find a solution if one exists.
+- **Memory Usage**: 12,122 KB
+- **CPU Utilization**: 25.33%
+- **Nodes Expanded**: 3,067 nodes
 
 ### 4. Uniform Cost Search (UCS)
-- **Optimality**: UCS is **optimal** in the Water Sort problem. UCS expands states based on the cost of reaching them (in this case, the number of pours). It guarantees finding the solution with the lowest cost (fewest pours) if the costs of operations vary.
-- **Completeness**: UCS is **complete**, meaning it will find a solution if one exists, regardless of the bottle configuration or the number of pours required.
+- **Optimality**: UCS is **optimal**, expanding the lowest-cost nodes first and guaranteeing the fewest number of pours.
+- **Completeness**: UCS is **complete**, ensuring a solution if it exists.
+- **Memory Usage**: 33,034 KB
+- **CPU Utilization**: 18.53%
+- **Nodes Expanded**: 1,953 nodes
 
 ### 5. Greedy Search 1 (GR1)
-- **Optimality**: Greedy Search 1 is **not optimal** for the Water Sort problem. It uses the heuristic of minimizing the number of different layers from the bottom layer of each bottle. While this heuristic may lead to quick solutions, it does not guarantee that the solution found is the one with the fewest pour operations.
-- **Completeness**: Greedy Search 1 is **not complete**. It may get stuck in a local minimum where it cannot make further improvements, and it may fail to find a solution even if one exists.
+- **Optimality**: Greedy Search 1 is **not optimal**, as it uses a heuristic that doesn't guarantee the fewest pours.
+- **Completeness**: GR1 is **not complete**, as it may miss solutions when following its heuristic.
+- **Memory Usage**: 80 KB
+- **CPU Utilization**: 21.98%
+- **Nodes Expanded**: 7 nodes
 
 ### 6. Greedy Search 2 (GR2)
-- **Optimality**: Greedy Search 2 is **not optimal** for the Water Sort problem. It uses a heuristic that prioritizes the number of bottles that do not have a uniform color. Like Greedy Search 1, it may find a solution quickly, but there is no guarantee that it is the most efficient solution in terms of pour operations.
-- **Completeness**: Greedy Search 2 is **not complete** for the same reason as Greedy Search 1. It may not explore all possible bottle configurations and can fail to find a solution if it gets stuck in a local minimum.
+- **Optimality**: Greedy Search 2 is **not optimal**, similar to GR1, focusing on a heuristic that may not lead to the most efficient solution.
+- **Completeness**: GR2 is **not complete** and can miss solutions if it follows an incorrect heuristic path.
+- **Memory Usage**: 160 KB
+- **CPU Utilization**: 17.83%
+- **Nodes Expanded**: 8 nodes
 
 ### 7. A* Search 1 (AS1)
-- **Optimality**: A* Search 1 is **optimal** in the Water Sort problem. It uses the heuristic of minimizing the number of different layers from the bottom layer of each bottle, combined with the cost to reach the current state. This ensures that A* finds the solution with the fewest number of pours, given the heuristic.
-- **Completeness**: A* Search 1 is **complete** and guarantees finding a solution if one exists. The combination of heuristic guidance and cost-based expansion ensures both completeness and optimality.
+- **Optimality**: A* Search 1 is **optimal**, combining the heuristic with cost-based expansion to guarantee the fewest pours.
+- **Completeness**: A* Search 1 is **complete** and will always find a solution if one exists.
+- **Memory Usage**: 1,026 KB
+- **CPU Utilization**: 21.95%
+- **Nodes Expanded**: 55 nodes
 
 ### 8. A* Search 2 (AS2)
-- **Optimality**: A* Search 2 is also **optimal** in the Water Sort problem. It uses the heuristic that minimizes the number of bottles that do not have a uniform color, along with the cost to reach the current state. This ensures that A* finds the most efficient solution in terms of the number of pour operations.
-- **Completeness**: A* Search 2 is **complete** and guarantees finding a solution if one exists. It benefits from both the guidance of the heuristic and cost-based expansion.
+- **Optimality**: A* Search 2 is **optimal**, using a different heuristic to ensure the fewest pours.
+- **Completeness**: A* Search 2 is **complete**, ensuring a solution if one exists.
+- **Memory Usage**: 1,708 KB
+- **CPU Utilization**: 20.34%
+- **Nodes Expanded**: 438 nodes
 
+---
+
+## Commentary on Results
+
+From the results, we observe some important trends across the search strategies:
+
+- **Breadth-First Search (BFS)** and **Uniform Cost Search (UCS)** both consume the highest amounts of memory and expand a large number of nodes, making them resource-intensive. Despite their optimality and completeness, they may not be the best choice for larger or more complex problems where memory is limited.
+  
+- **Depth-First Search (DFS)** is the most memory-efficient, but its lack of optimality and completeness, combined with high CPU utilization, makes it less desirable for ensuring optimal solutions. It explores fewer nodes, but the paths it takes can be suboptimal and very deep.
+
+- **Iterative Deepening (ID)** balances the advantages of BFS and DFS. It maintains optimality and completeness while consuming less memory than BFS and UCS. However, it still expands a large number of nodes, making it less CPU-efficient than DFS.
+
+- **Greedy Searches (GR1 and GR2)** are fast and resource-efficient, consuming the least memory and expanding the fewest nodes. However, their lack of optimality and completeness limits their reliability, as they may miss better solutions.
+
+- **A* Searches (AS1 and AS2)** provide a balance between optimality, completeness, and resource efficiency. While they use more memory than the greedy approaches, they offer a significant improvement in finding the most optimal solution while expanding fewer nodes than BFS or UCS. **A* Search 1** tends to use less memory and CPU than **A* Search 2**, making it slightly more efficient overall.
 ---
 
 
