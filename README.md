@@ -103,9 +103,10 @@ Admissibility is a crucial property for heuristics in A* search, meaning that th
 
 Both heuristics provide optimistic estimates of the remaining cost to reach the goal, meaning that they never overestimate the true cost. This makes them **admissible** and ensures that A* search, when using these heuristics, will find the optimal solution to the WaterSort problem.
 
+
 ## Performance of Search Strategies
 
-In the **Water Sort Search** problem, each search strategy has been evaluated based on **Optimality**, **Completeness**, **Memory Usage**, **CPU Utilization**, and **Number of Expanded Nodes**.
+In the **Water Sort Search** problem, each search strategy has been evaluated based on **Optimality**, **Completeness**, **Memory Usage**, **CPU Utilization**, and **Number of Expanded Nodes**. It's important to note that infinite branches are not an issue in this problem because the algorithm tracks repeated states, ensuring that it avoids redundant exploration of previously visited states.
 
 ### 1. Breadth-First Search (BFS)
 - **Optimality**: BFS is **optimal** when all operations (pouring liquids) have equal costs, ensuring the fewest number of pour operations.
@@ -116,14 +117,14 @@ In the **Water Sort Search** problem, each search strategy has been evaluated ba
 
 ### 2. Depth-First Search (DFS)
 - **Optimality**: DFS is **not optimal**, as it explores one path deeply before backtracking, often leading to suboptimal solutions.
-- **Completeness**: DFS is **not complete**, as it may get stuck exploring deep paths and miss shorter solutions.
+- **Completeness**: DFS is **not complete**, as it may get stuck exploring deep paths and miss shorter solutions. However, since repeated states are tracked, it avoids infinite loops.
 - **Memory Usage**: 2,229 KB
 - **CPU Utilization**: 26.70%
 - **Nodes Expanded**: 76 nodes
 
 ### 3. Iterative Deepening Search (ID)
 - **Optimality**: ID is **optimal**, combining the memory efficiency of DFS and the solution optimality of BFS.
-- **Completeness**: ID is **complete** and will find a solution if one exists.
+- **Completeness**: ID is **complete** and will find a solution if one exists. Like DFS and BFS, it tracks repeated states to prevent revisiting them.
 - **Memory Usage**: 12,122 KB
 - **CPU Utilization**: 25.33%
 - **Nodes Expanded**: 3,067 nodes
@@ -137,14 +138,14 @@ In the **Water Sort Search** problem, each search strategy has been evaluated ba
 
 ### 5. Greedy Search 1 (GR1)
 - **Optimality**: Greedy Search 1 is **not optimal**, as it uses a heuristic that doesn't guarantee the fewest pours.
-- **Completeness**: GR1 is **not complete**, as it may miss solutions when following its heuristic.
+- **Completeness**: GR1 is **not complete**, as it may miss solutions when following its heuristic. However, tracking repeated states ensures that it avoids loops.
 - **Memory Usage**: 80 KB
 - **CPU Utilization**: 21.98%
 - **Nodes Expanded**: 7 nodes
 
 ### 6. Greedy Search 2 (GR2)
 - **Optimality**: Greedy Search 2 is **not optimal**, similar to GR1, focusing on a heuristic that may not lead to the most efficient solution.
-- **Completeness**: GR2 is **not complete** and can miss solutions if it follows an incorrect heuristic path.
+- **Completeness**: GR2 is **not complete** and can miss solutions if it follows an incorrect heuristic path, though it avoids infinite branches by tracking states.
 - **Memory Usage**: 160 KB
 - **CPU Utilization**: 17.83%
 - **Nodes Expanded**: 8 nodes
@@ -171,15 +172,13 @@ From the results, we observe some important trends across the search strategies:
 
 - **Breadth-First Search (BFS)** and **Uniform Cost Search (UCS)** both consume the highest amounts of memory and expand a large number of nodes, making them resource-intensive. Despite their optimality and completeness, they may not be the best choice for larger or more complex problems where memory is limited.
   
-- **Depth-First Search (DFS)** is the most memory-efficient, but its lack of optimality and completeness, combined with high CPU utilization, makes it less desirable for ensuring optimal solutions. It explores fewer nodes, but the paths it takes can be suboptimal and very deep.
+- **Depth-First Search (DFS)** is the most memory-efficient, but its lack of optimality and completeness, combined with high CPU utilization, makes it less desirable for ensuring optimal solutions. It explores fewer nodes, but the paths it takes can be suboptimal and very deep. Tracking repeated states prevents DFS from revisiting the same states and getting stuck in infinite loops.
 
 - **Iterative Deepening (ID)** balances the advantages of BFS and DFS. It maintains optimality and completeness while consuming less memory than BFS and UCS. However, it still expands a large number of nodes, making it less CPU-efficient than DFS.
 
-- **Greedy Searches (GR1 and GR2)** are fast and resource-efficient, consuming the least memory and expanding the fewest nodes. However, their lack of optimality and completeness limits their reliability, as they may miss better solutions.
+- **Greedy Searches (GR1 and GR2)** are fast and resource-efficient, consuming the least memory and expanding the fewest nodes. However, their lack of optimality and completeness limits their reliability, as they may miss better solutions. The tracking of repeated states prevents them from revisiting redundant states.
 
 - **A* Searches (AS1 and AS2)** provide a balance between optimality, completeness, and resource efficiency. While they use more memory than the greedy approaches, they offer a significant improvement in finding the most optimal solution while expanding fewer nodes than BFS or UCS. **A* Search 1** tends to use less memory and CPU than **A* Search 2**, making it slightly more efficient overall.
----
-
 
 
 
