@@ -8,8 +8,8 @@ import Quing.QuingFunc;
 public abstract class GenericSearch {
 
 	State initialState; 
-//	HashSet<State> explored = new HashSet<State>();
-	HashMap<State, Integer> exploredMap = new HashMap<State, Integer>();
+	HashSet<State> explored = new HashSet<State>();
+
 	int nodesExpanded = 0;
 
     public GenericSearch(State initialState) {
