@@ -184,7 +184,7 @@ From the results, we observe some important trends across the search strategies:
 
 - **Iterative Deepening (ID)** It expands the most nodes due to iterating and doing the dfs for several levels.
 
-- **A* Searches (AS1 and AS2)** provide a balance between optimality, completeness, and resource efficiency. While they use more memory than the greedy approaches, they guarantee finding the most optimal solution while expanding fewer nodes than UCS. **A* Search 1** tends to use less memory and CPU than **A* Search 2**, making it slightly more efficient overall.
+- **A_Star Searches (AS1 and AS2)** provide a balance between optimality, completeness, and resource efficiency. While they use more memory than the greedy approaches, they guarantee finding the most optimal solution while expanding fewer nodes than UCS. **A* Search 1** tends to use less memory and CPU than **A* Search 2**, making it slightly more efficient overall.
 
 
 
